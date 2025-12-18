@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		124DF958C0DCCCC58DDDB7B4 /* KeyMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624D43993F9D1353890B29CC /* KeyMapping.swift */; };
+		193ACECA16A7927DDD973494 /* GamepadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2406E6B99FCFC3B7F5D34A /* GamepadButton.swift */; };
+		64B4F4B50105A3BCE076CEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42A3A3C531C5ECF19A20A3 /* AppDelegate.swift */; };
+		6544645B32BDB7DB3F5BEAFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6F2D04563DAC57CF15DD58D /* Assets.xcassets */; };
+		9ADE710B06A661EB8735C0A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA64C41FD34EE19D5F001D62 /* SettingsView.swift */; };
+		C43BE53193B1AC26A8A7E118 /* KeyRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B530FAB13ABE2F70C4C2E774 /* KeyRecorder.swift */; };
+		C667F8D88DE9A7B9A410DE8E /* JoyTalkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97C2FBC7F280E9607408479 /* JoyTalkerApp.swift */; };
+		CDDEC80081D72E4A4F7F4F1A /* ButtonConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51272BB2ED3CC402A0BE81E8 /* ButtonConfigView.swift */; };
+		DC45E4E424E6C4CE573DC293 /* ControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5BD9EF4D8F0BF7B83D7B3 /* ControllerView.swift */; };
+		E6EA29F26DDBEF2C5A07B697 /* HIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5129DA5015F96A5714BFC35A /* HIDManager.swift */; };
+		F126986CD2A213850F775207 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD445623E1DB8BCF822BB7 /* SettingsManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		05795A043AF02978FD81D17E /* JoyTalker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoyTalker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B42A3A3C531C5ECF19A20A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4FAD445623E1DB8BCF822BB7 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		51272BB2ED3CC402A0BE81E8 /* ButtonConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConfigView.swift; sourceTree = "<group>"; };
+		5129DA5015F96A5714BFC35A /* HIDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIDManager.swift; sourceTree = "<group>"; };
+		624D43993F9D1353890B29CC /* KeyMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMapping.swift; sourceTree = "<group>"; };
+		954F3357C452B1383D61776E /* JoyTalker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JoyTalker.entitlements; sourceTree = "<group>"; };
+		B530FAB13ABE2F70C4C2E774 /* KeyRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyRecorder.swift; sourceTree = "<group>"; };
+		C5CA85853A885314EEEC43D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D6F2D04563DAC57CF15DD58D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E2D5BD9EF4D8F0BF7B83D7B3 /* ControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerView.swift; sourceTree = "<group>"; };
+		EF2406E6B99FCFC3B7F5D34A /* GamepadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamepadButton.swift; sourceTree = "<group>"; };
+		F97C2FBC7F280E9607408479 /* JoyTalkerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyTalkerApp.swift; sourceTree = "<group>"; };
+		FA64C41FD34EE19D5F001D62 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		217A4F9BCEB779F828594A9A = {
+			isa = PBXGroup;
+			children = (
+				4B5996881CF0CEC2363DA047 /* JoyTalker */,
+				5B2047326A3987452E0A2BC1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3CCE35E08F81F366C335B751 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				51272BB2ED3CC402A0BE81E8 /* ButtonConfigView.swift */,
+				E2D5BD9EF4D8F0BF7B83D7B3 /* ControllerView.swift */,
+				FA64C41FD34EE19D5F001D62 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4B5996881CF0CEC2363DA047 /* JoyTalker */ = {
+			isa = PBXGroup;
+			children = (
+				2B42A3A3C531C5ECF19A20A3 /* AppDelegate.swift */,
+				D6F2D04563DAC57CF15DD58D /* Assets.xcassets */,
+				C5CA85853A885314EEEC43D9 /* Info.plist */,
+				954F3357C452B1383D61776E /* JoyTalker.entitlements */,
+				C9890D554A9372F5118B7CF9 /* App */,
+				A26C28BB93454BA7AC000B5C /* Managers */,
+				F60CA21F00633A633C4B259D /* Models */,
+				3CCE35E08F81F366C335B751 /* Views */,
+			);
+			path = JoyTalker;
+			sourceTree = "<group>";
+		};
+		5B2047326A3987452E0A2BC1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05795A043AF02978FD81D17E /* JoyTalker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A26C28BB93454BA7AC000B5C /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5129DA5015F96A5714BFC35A /* HIDManager.swift */,
+				B530FAB13ABE2F70C4C2E774 /* KeyRecorder.swift */,
+				4FAD445623E1DB8BCF822BB7 /* SettingsManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C9890D554A9372F5118B7CF9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F97C2FBC7F280E9607408479 /* JoyTalkerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F60CA21F00633A633C4B259D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EF2406E6B99FCFC3B7F5D34A /* GamepadButton.swift */,
+				624D43993F9D1353890B29CC /* KeyMapping.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		12266AEC616DA67DC1E9ECC4 /* JoyTalker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E472FE444EF871DC755B4E6A /* Build configuration list for PBXNativeTarget "JoyTalker" */;
+			buildPhases = (
+				D699CCE74699C57DE1A5BD05 /* Sources */,
+				0DDC46E08A6B38A06503BFBC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JoyTalker;
+			packageProductDependencies = (
+			);
+			productName = JoyTalker;
+			productReference = 05795A043AF02978FD81D17E /* JoyTalker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		649326321022728C08C089E0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					12266AEC616DA67DC1E9ECC4 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 42191CD3E059D22CB88A3478 /* Build configuration list for PBXProject "JoyTalker" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 217A4F9BCEB779F828594A9A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				12266AEC616DA67DC1E9ECC4 /* JoyTalker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0DDC46E08A6B38A06503BFBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6544645B32BDB7DB3F5BEAFC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D699CCE74699C57DE1A5BD05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64B4F4B50105A3BCE076CEF1 /* AppDelegate.swift in Sources */,
+				CDDEC80081D72E4A4F7F4F1A /* ButtonConfigView.swift in Sources */,
+				DC45E4E424E6C4CE573DC293 /* ControllerView.swift in Sources */,
+				193ACECA16A7927DDD973494 /* GamepadButton.swift in Sources */,
+				E6EA29F26DDBEF2C5A07B697 /* HIDManager.swift in Sources */,
+				C667F8D88DE9A7B9A410DE8E /* JoyTalkerApp.swift in Sources */,
+				124DF958C0DCCCC58DDDB7B4 /* KeyMapping.swift in Sources */,
+				C43BE53193B1AC26A8A7E118 /* KeyRecorder.swift in Sources */,
+				F126986CD2A213850F775207 /* SettingsManager.swift in Sources */,
+				9ADE710B06A661EB8735C0A4 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5298D42E73C015FD8273E4B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JoyTalker/JoyTalker.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = JoyTalker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.harperrules.joytalker;
+				PRODUCT_NAME = JoyTalker;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5612E54694F80C63D85C43C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		73A111B653725478E1705401 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		F741CE52487BE4174D1CADDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JoyTalker/JoyTalker.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = JoyTalker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.harperrules.joytalker;
+				PRODUCT_NAME = JoyTalker;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		42191CD3E059D22CB88A3478 /* Build configuration list for PBXProject "JoyTalker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5612E54694F80C63D85C43C3 /* Debug */,
+				73A111B653725478E1705401 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E472FE444EF871DC755B4E6A /* Build configuration list for PBXNativeTarget "JoyTalker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F741CE52487BE4174D1CADDC /* Debug */,
+				5298D42E73C015FD8273E4B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 649326321022728C08C089E0 /* Project object */;
+}

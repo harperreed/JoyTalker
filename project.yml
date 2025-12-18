@@ -1,0 +1,34 @@
+name: JoyTalker
+options:
+  bundleIdPrefix: com.harperrules
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+
+targets:
+  JoyTalker:
+    type: application
+    platform: macOS
+    sources:
+      - path: JoyTalker
+        excludes:
+          - "**/.DS_Store"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.harperrules.joytalker
+        PRODUCT_NAME: JoyTalker
+        INFOPLIST_FILE: JoyTalker/Info.plist
+        CODE_SIGN_ENTITLEMENTS: JoyTalker/JoyTalker.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0.0
+    entitlements:
+      path: JoyTalker/JoyTalker.entitlements

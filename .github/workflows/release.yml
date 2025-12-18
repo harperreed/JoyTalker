@@ -1,0 +1,216 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Import Code Signing Certificate
+        env:
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
+        run: |
+          # Create temporary keychain
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+          # Import certificate
+          echo "$CERTIFICATE_BASE64" | base64 --decode > certificate.p12
+          security import certificate.p12 -k "$KEYCHAIN_PATH" -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+          # Set as default keychain
+          security list-keychains -d user -s "$KEYCHAIN_PATH"
+          rm certificate.p12
+
+      - name: Update version from git tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Setting app version to: $VERSION"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" JoyTalker/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $VERSION" JoyTalker/Info.plist
+
+      - name: Build app
+        run: |
+          xcodebuild build \
+            -project JoyTalker.xcodeproj \
+            -scheme JoyTalker \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Sign app
+        run: |
+          # Find the built app
+          BUILT_APP=$(find build/DerivedData -name "JoyTalker.app" -type d | head -1)
+          echo "Found app at: $BUILT_APP"
+
+          # Copy to release location
+          mkdir -p build/Release
+          cp -R "$BUILT_APP" build/Release/
+
+          APP_PATH="build/Release/JoyTalker.app"
+
+          # Sign the main executable with entitlements
+          echo "Signing main executable..."
+          codesign --force --options runtime --sign "Developer ID Application" --timestamp \
+            --entitlements JoyTalker/JoyTalker.entitlements \
+            "$APP_PATH/Contents/MacOS/JoyTalker"
+
+          # Sign the app bundle with entitlements
+          echo "Signing app bundle..."
+          codesign --force --options runtime --sign "Developer ID Application" --timestamp \
+            --entitlements JoyTalker/JoyTalker.entitlements \
+            "$APP_PATH"
+
+          # Verify signature
+          echo "Verifying signature..."
+          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+          echo "App signature verified"
+
+      - name: Create ZIP for notarization
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          if [ -z "$VERSION" ] || [ "$VERSION" = "$GITHUB_REF" ]; then
+            VERSION="dev"
+          fi
+
+          cd build/Release
+          zip -r "../../JoyTalker-${VERSION}.zip" JoyTalker.app
+          cd ../..
+
+          echo "Created: JoyTalker-${VERSION}.zip"
+
+      - name: Notarize app
+        env:
+          API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        run: |
+          ZIP_FILE=$(ls JoyTalker-*.zip)
+
+          # Write API key to temporary file
+          echo "$API_KEY_BASE64" | base64 --decode > AuthKey.p8
+
+          # Submit for notarization
+          echo "Submitting for notarization..."
+          SUBMISSION_OUTPUT=$(xcrun notarytool submit "$ZIP_FILE" \
+            --key AuthKey.p8 \
+            --key-id "$API_KEY_ID" \
+            --issuer "$API_ISSUER_ID" \
+            --wait 2>&1)
+
+          echo "$SUBMISSION_OUTPUT"
+
+          # Extract submission ID for potential log retrieval
+          SUBMISSION_ID=$(echo "$SUBMISSION_OUTPUT" | grep -E 'id: [a-f0-9-]+' | head -1 | awk '{print $2}')
+          echo "SUBMISSION_ID=$SUBMISSION_ID" >> $GITHUB_ENV
+
+          # Clean up
+          rm AuthKey.p8
+
+      - name: Staple notarization ticket
+        run: |
+          # Unzip, staple, re-zip
+          VERSION=${GITHUB_REF#refs/tags/v}
+          if [ -z "$VERSION" ] || [ "$VERSION" = "$GITHUB_REF" ]; then
+            VERSION="dev"
+          fi
+
+          # Remove old zip
+          rm -f "JoyTalker-${VERSION}.zip"
+
+          # Staple the app
+          xcrun stapler staple "build/Release/JoyTalker.app"
+
+          # Create final zip
+          cd build/Release
+          zip -r "../../JoyTalker-${VERSION}.zip" JoyTalker.app
+          cd ../..
+
+          echo "Created notarized: JoyTalker-${VERSION}.zip"
+
+      - name: Retrieve notarization log on failure
+        if: failure()
+        env:
+          API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        run: |
+          echo "$API_KEY_BASE64" | base64 --decode > AuthKey.p8
+
+          if [ -n "${{ env.SUBMISSION_ID }}" ]; then
+            echo "Retrieving notarization log for submission: ${{ env.SUBMISSION_ID }}"
+            xcrun notarytool log "${{ env.SUBMISSION_ID }}" \
+              --key AuthKey.p8 \
+              --key-id "$API_KEY_ID" \
+              --issuer "$API_ISSUER_ID"
+          fi
+
+          rm -f AuthKey.p8
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: JoyTalker
+          path: JoyTalker-*.zip
+          retention-days: 30
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: JoyTalker-*.zip
+          draft: false
+          generate_release_notes: true
+          body: |
+            ## Installation
+
+            1. Download `JoyTalker-*.zip`
+            2. Unzip and drag JoyTalker to Applications
+            3. Launch the app
+            4. Grant Accessibility permission when prompted
+            5. Connect your 8BitDo Micro in gamepad mode
+
+            ## Requirements
+
+            - macOS 13.0 or later
+            - 8BitDo Micro controller (in Switch/gamepad mode)
+
+            ## What's New
+
+            JoyTalker maps your 8BitDo Micro buttons to keyboard shortcuts.
+            Perfect for push-to-talk, escape, and custom key bindings.
+
+            ---
+
+            **Note:** This build is code signed and notarized with Developer ID.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
