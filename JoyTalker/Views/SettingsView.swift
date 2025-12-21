@@ -18,15 +18,37 @@ struct SettingsView: View {
                 ControllerView(settings: settings, selectedButton: $selectedButton)
                     .padding()
 
-                HStack {
-                    Circle()
-                        .fill(settings.isConnected ? .green : .gray)
-                        .frame(width: 10, height: 10)
-                    Text(settings.isConnected ? "Connected" : "Disconnected")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                VStack(spacing: 4) {
+                    HStack {
+                        Circle()
+                            .fill(settings.isConnected ? .green : .gray)
+                            .frame(width: 10, height: 10)
+                        Text(settings.isConnected ? "Connected" : "Disconnected")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+
+                    HStack {
+                        Circle()
+                            .fill(settings.hasAccessibilityPermission ? .green : .red)
+                            .frame(width: 10, height: 10)
+                        Text(settings.hasAccessibilityPermission ? "Accessibility: Granted" : "Accessibility: Not Granted")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        if !settings.hasAccessibilityPermission {
+                            Button("Grant") {
+                                settings.requestAccessibilityPermission()
+                            }
+                            .font(.caption)
+                            .buttonStyle(.bordered)
+                            .controlSize(.mini)
+                        }
+                    }
                 }
                 .padding(.bottom)
+                .onAppear {
+                    settings.refreshAccessibilityStatus()
+                }
             }
             .frame(width: 280)
             .background(Color(NSColor.controlBackgroundColor))

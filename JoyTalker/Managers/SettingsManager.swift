@@ -2,6 +2,7 @@
 // ABOUTME: Singleton shared across the app, publishes changes for SwiftUI observation.
 
 import Foundation
+import ApplicationServices
 
 class SettingsManager: ObservableObject {
     static let shared = SettingsManager()
@@ -9,9 +10,24 @@ class SettingsManager: ObservableObject {
     @Published var mappings: [GamepadButton: KeyMapping] = [:]
     @Published var isConnected = false
     @Published var activeButtons: Set<GamepadButton> = []
+    @Published var hasAccessibilityPermission = false
 
     init() {
         loadMappings()
+        refreshAccessibilityStatus()
+    }
+
+    func refreshAccessibilityStatus() {
+        hasAccessibilityPermission = AXIsProcessTrusted()
+    }
+
+    func requestAccessibilityPermission() {
+        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
+        AXIsProcessTrustedWithOptions(options)
+        // Check again after a short delay to update status
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.refreshAccessibilityStatus()
+        }
     }
 
     func loadMappings() {

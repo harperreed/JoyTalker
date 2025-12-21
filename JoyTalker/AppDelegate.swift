@@ -58,6 +58,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusMenuItem.tag = 100
         menu.addItem(statusMenuItem)
 
+        let permissionStatus = SettingsManager.shared.hasAccessibilityPermission ? "✓ Granted" : "✗ Not Granted"
+        let permissionMenuItem = NSMenuItem(title: "Accessibility: \(permissionStatus)", action: #selector(checkPermission), keyEquivalent: "")
+        permissionMenuItem.tag = 101
+        menu.addItem(permissionMenuItem)
+
         menu.addItem(NSMenuItem.separator())
 
         menu.addItem(NSMenuItem(title: "Open Settings...", action: #selector(openSettings), keyEquivalent: ","))
@@ -67,6 +72,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent: "q"))
 
         statusItem.menu = menu
+
+        // Refresh permission status when menu opens
+        NotificationCenter.default.addObserver(
+            forName: NSMenu.didBeginTrackingNotification,
+            object: menu,
+            queue: .main
+        ) { [weak self] _ in
+            SettingsManager.shared.refreshAccessibilityStatus()
+            self?.updatePermissionMenuItem()
+        }
     }
 
     @objc func openSettings() {
@@ -76,6 +91,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
         }
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    @objc func checkPermission() {
+        SettingsManager.shared.refreshAccessibilityStatus()
+        updatePermissionMenuItem()
+        if !SettingsManager.shared.hasAccessibilityPermission {
+            SettingsManager.shared.requestAccessibilityPermission()
+        }
+    }
+
+    func updatePermissionMenuItem() {
+        if let menu = statusItem.menu, let item = menu.item(withTag: 101) {
+            let status = SettingsManager.shared.hasAccessibilityPermission ? "✓ Granted" : "✗ Not Granted"
+            item.title = "Accessibility: \(status)"
+        }
     }
 
     func updateStatusIcon(connected: Bool, active: Bool) {
